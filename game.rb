@@ -7,6 +7,7 @@
 	# Paper > Rock
 # Ask if player wants to play again
 
+
 class Player 
 	attr_accessor :choice
 	def initialize 
@@ -22,25 +23,21 @@ class Player
 end
 
 class Computer 
+	attr_accessor :choice 
 	def initialize 
 	end
 	def pick
-		choice = Game::CHOICE.values.sample
+		self.choice = Game::CHOICE.values.sample
 		puts "The computer picked #{choice}"
 	end
 end
 
 class Game
 	CHOICE = {'r' => "rock", "p" => "paper", "s" => "scissors"}
+	attr_reader :player, :computer
 	def initialize
 		@player = Player.new
 		@computer = Computer.new
-	end
-	def play
-		self.intro 
-		@player.pick
-		@computer.pick
-		self.retry?
 	end
 	def intro
 		puts "Welcome to Rock Paper Scissors"
@@ -48,11 +45,29 @@ class Game
 	def retry? 
 	 puts "Would you like to play again?"
 	end
-end
-
-module Calculations 
-	def compare_hands
-
+	def hands
+		puts "You picked #{player.choice} and the computer picked #{computer.choice}."
+	end 
+	def compare(choice, cpu)
+		if choice == cpu
+			self.hands
+			puts "It's a tie"
+		elsif (choice == "rock" && cpu == "scissors") || (choice == "paper" && cpu == "rock") || (choice == "scissors" && cpu == "paper")
+			self.hands
+			puts "You won!"
+		else 
+			self.hands
+			puts "You lost!"
+		end
+	end
+	def play
+		self.intro 
+		@player.pick
+		@computer.pick
+		self.compare(player.choice, computer.choice)
+		self.retry?
 	end
 end
+
+
 game = Game.new.play
