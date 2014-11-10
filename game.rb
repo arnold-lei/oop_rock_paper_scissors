@@ -34,7 +34,7 @@ end
 
 class Game
 	CHOICE = {'r' => "rock", "p" => "paper", "s" => "scissors"}
-	attr_reader :player, :computer
+	attr_reader :player, :computer, :answer
 	def initialize
 		@player = Player.new
 		@computer = Computer.new
@@ -43,7 +43,13 @@ class Game
 		puts "Welcome to Rock Paper Scissors"
 	end
 	def retry? 
-	 puts "Would you like to play again?"
+	 puts "Would you like to play again? (Y/N)"
+	 answer = gets.chomp.downcase
+		if answer == "y"
+		 	self.play
+		else
+		 	exit
+		end 
 	end
 	def hands
 		puts "You picked #{player.choice} and the computer picked #{computer.choice}."
