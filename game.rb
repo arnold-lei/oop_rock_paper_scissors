@@ -17,7 +17,7 @@ class Player
 			puts "Please pick (R/P/S)"
 			c = gets.chomp.downcase
 		end until Game::CHOICE.keys.include?(c)
-		self.choice = Game::CHOICE[c]
+			self.choice = Game::CHOICE[c]
 			puts "you picked #{choice}"
 	end
 end
@@ -56,13 +56,13 @@ class Game
 	end 
 	def compare(choice, cpu)
 		if choice == cpu
-			self.hands
+			hands
 			puts "It's a tie"
 		elsif (choice == "rock" && cpu == "scissors") || (choice == "paper" && cpu == "rock") || (choice == "scissors" && cpu == "paper")
-			self.hands
+			hands
 			puts "You won!"
 		else 
-			self.hands
+			hands
 			puts "You lost!"
 		end
 	end
@@ -70,8 +70,8 @@ class Game
 		self.intro 
 		@player.pick
 		@computer.pick
-		self.compare(player.choice, computer.choice)
-		self.retry?
+		compare(player.choice, computer.choice)
+		retry?
 	end
 end
 
